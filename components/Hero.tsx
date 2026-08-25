@@ -1,124 +1,165 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
-import { BrowserFrame } from "./BrowserFrame";
-import { Button } from "./ui/Button";
-import { stats, contactInfo } from "@/lib/data";
-import { FadeIn } from "./FadeIn";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import { SitePreview } from "./SitePreview";
+import { projects, stats, contactInfo } from "@/lib/data";
+
+const kopi = projects.find((p) => p.id === "kopi-senja")!;
+const mitra = projects.find((p) => p.id === "mitra-sehat")!;
+
+const ease = [0.22, 1, 0.36, 1] as const;
 
 export function Hero() {
+  const reduce = useReducedMotion();
+
+  const rise = (delay: number) =>
+    reduce
+      ? {}
+      : {
+          initial: { opacity: 0, y: 20 },
+          animate: { opacity: 1, y: 0 },
+          transition: { duration: 0.7, delay, ease },
+        };
+
   return (
     <section
-      className="relative overflow-hidden bg-white pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-40 lg:pb-28"
+      className="relative overflow-hidden pt-32 pb-16 sm:pt-36 lg:pt-44 lg:pb-24"
       aria-labelledby="hero-heading"
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+      {/* atmosphere */}
+      <div
+        className="pointer-events-none absolute -right-40 -top-40 h-[36rem] w-[36rem] rounded-full bg-pine/[0.06] blur-3xl"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute -left-40 top-1/3 h-[28rem] w-[28rem] rounded-full bg-saffron/[0.05] blur-3xl"
+        aria-hidden="true"
+      />
+
+      <div className="relative mx-auto max-w-8xl px-5 sm:px-8">
+        <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
           {/* Text */}
           <div className="max-w-2xl">
-            <FadeIn>
-              <span className="inline-flex items-center rounded-full border border-hair bg-mist px-3 py-1 text-xs font-mono font-semibold uppercase tracking-wider text-ink">
-                Jasa Pembuatan Website
-              </span>
-            </FadeIn>
-
-            <FadeIn delay={0.05}>
-              <h1
-                id="hero-heading"
-                className="mt-6 font-display text-4xl font-bold leading-[1.1] tracking-tight text-ink sm:text-5xl lg:text-6xl"
-              >
-                Website keren untuk{" "}
-                <span className="relative inline-block">
-                  bisnis
-                  <svg
-                    aria-hidden="true"
-                    viewBox="0 0 160 12"
-                    className="absolute -bottom-1 left-0 w-full text-zap"
-                    preserveAspectRatio="none"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M2 8c40-6 116-6 156 0"
-                    />
-                  </svg>
-                </span>{" "}
-                Anda, tanpa ribet.
-              </h1>
-            </FadeIn>
-
-            <FadeIn delay={0.1}>
-              <p className="mt-6 text-lg leading-relaxed text-ink/70 sm:text-xl">
-                Webkriya bantu UMKM dan bisnis kecil-menengah punya website
-                profesional yang cepat, mudah dikelola, dan siap menarik lebih
-                banyak pelanggan.
-              </p>
-            </FadeIn>
-
-            <FadeIn delay={0.15}>
-              <div className="mt-8 flex flex-wrap items-center gap-4">
-                <Button
-                  href={contactInfo.whatsapp}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-7 py-3.5 text-base"
+            <motion.h1
+              id="hero-heading"
+              {...rise(0.05)}
+              className="font-display text-[2.7rem] font-bold leading-[0.98] tracking-[-0.03em] text-ink sm:text-6xl lg:text-[4.6rem]"
+            >
+              Website yang bikin{" "}
+              <span className="relative whitespace-nowrap text-pine">
+                bisnis kecil
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 300 16"
+                  preserveAspectRatio="none"
+                  className="absolute -bottom-2 left-0 h-3 w-full text-saffron"
                 >
-                  Mulai Konsultasi Gratis
-                  <ArrowRight className="h-4 w-4" />
-                </Button>
-                <Button variant="outline" href="#portofolio" className="px-7 py-3.5 text-base">
-                  Lihat Portofolio
-                </Button>
-              </div>
-            </FadeIn>
+                  <path
+                    d="M3 11C60 4 240 4 297 9"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="4.5"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </span>{" "}
+              terlihat kelas atas.
+            </motion.h1>
 
-            <FadeIn delay={0.2}>
-              <dl className="mt-12 grid grid-cols-3 gap-4 border-t border-hair pt-8 sm:gap-8">
-                {stats.map((stat) => (
-                  <div key={stat.label}>
-                    <dt className="font-display text-2xl font-bold text-ink sm:text-3xl">
+            <motion.p
+              {...rise(0.15)}
+              className="mt-7 max-w-xl text-lg leading-relaxed text-ink/70 text-pretty sm:text-xl"
+            >
+              Webkriya merancang dan membangun website untuk UMKM dan bisnis
+              kecil-menengah — rapi, cepat dibuka, mudah dikelola, dan enak diajak
+              ngobrol dari brief sampai launch.
+            </motion.p>
+
+            <motion.div
+              {...rise(0.25)}
+              className="mt-9 flex flex-wrap items-center gap-3.5"
+            >
+              <a
+                href="#portofolio"
+                className="group inline-flex items-center gap-2 rounded-[12px] bg-pine px-7 py-3.5 text-[0.95rem] font-semibold text-canvas shadow-pine transition-all duration-200 hover:-translate-y-0.5 hover:bg-pineLight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pine focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
+              >
+                Lihat Portofolio
+                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+              </a>
+              <a
+                href={contactInfo.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-2 rounded-[12px] border border-ink/20 px-7 py-3.5 text-[0.95rem] font-semibold text-ink transition-all duration-200 hover:-translate-y-0.5 hover:border-ink/40 hover:bg-ink/[0.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pine focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
+              >
+                Konsultasi Gratis
+                <ArrowUpRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </a>
+            </motion.div>
+
+            {/* honest offer strip — not a fabricated track record */}
+            <motion.dl
+              {...rise(0.35)}
+              className="mt-11 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-stone pt-7"
+            >
+              {stats.map((stat, i) => (
+                <div key={stat.label} className="flex items-center gap-6">
+                  {i > 0 && (
+                    <span className="hidden h-1.5 w-1.5 rounded-full bg-saffron sm:block" />
+                  )}
+                  <div>
+                    <dt className="nums font-display text-2xl font-bold leading-none text-ink">
                       {stat.value}
+                      {stat.unit && (
+                        <span className="ml-1 text-base font-semibold text-ink/50">
+                          {stat.unit}
+                        </span>
+                      )}
                     </dt>
-                    <dd className="mt-1 text-xs font-medium text-ink/60 sm:text-sm">
+                    <dd className="mt-1.5 text-[0.8rem] font-medium text-ink/55">
                       {stat.label}
                     </dd>
                   </div>
-                ))}
-              </dl>
-            </FadeIn>
+                </div>
+              ))}
+            </motion.dl>
           </div>
 
-          {/* Visual cluster */}
-          <FadeIn delay={0.15} direction="left">
-            <div className="relative mx-auto h-[420px] w-full max-w-lg sm:h-[520px] lg:h-[580px] lg:max-w-none">
-              <div className="absolute left-[5%] top-[8%] h-[55%] w-[70%] -rotate-6 sm:left-[8%] sm:top-[10%]">
-                <BrowserFrame
-                  url="kopisenja.id"
-                  imageSrc="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&w=800&q=80"
-                  alt="Preview website toko online Kopi Senja"
+          {/* Visual cluster — authored previews, no fake domains */}
+          <motion.div
+            {...(reduce
+              ? {}
+              : {
+                  initial: { opacity: 0, y: 28 },
+                  animate: { opacity: 1, y: 0 },
+                  transition: { duration: 0.8, delay: 0.2, ease },
+                })}
+            className="relative mx-auto h-[400px] w-full max-w-lg sm:h-[500px] lg:h-[560px] lg:max-w-none"
+          >
+            <div className="absolute left-0 top-2 w-[78%] -rotate-[3deg] sm:top-6 lg:left-2">
+              <div className="animate-float-slow">
+                <SitePreview
+                  {...kopi}
+                  detail="full"
                   priority
-                  sizes="(max-width: 768px) 80vw, 35vw"
-                />
-              </div>
-              <div className="absolute right-[2%] top-[28%] h-[45%] w-[55%] rotate-3 sm:right-[5%] sm:top-[26%]">
-                <BrowserFrame
-                  url="mitrasehat.co.id"
-                  imageSrc="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80"
-                  alt="Preview website company profile klinik Mitra Sehat"
-                  priority
-                  sizes="(max-width: 768px) 70vw, 28vw"
-                />
-              </div>
-              <div className="absolute bottom-[5%] left-[18%] h-[40%] w-[50%] rotate-2 sm:bottom-[6%] sm:left-[20%]">
-                <BrowserFrame
-                  url="noirfashion.id"
-                  imageSrc="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80"
-                  alt="Preview landing page Noir Fashion"
-                  priority
-                  sizes="(max-width: 768px) 65vw, 26vw"
+                  sizes="(max-width: 1024px) 70vw, 32vw"
+                  className="shadow-lift"
                 />
               </div>
             </div>
-          </FadeIn>
+            <div className="absolute -bottom-2 right-0 w-[60%] rotate-[4deg] sm:bottom-2 lg:right-2">
+              <div className="animate-float-slow [animation-delay:1.5s]">
+                <SitePreview
+                  {...mitra}
+                  detail="min"
+                  priority
+                  sizes="(max-width: 1024px) 55vw, 26vw"
+                  className="shadow-lift"
+                />
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>

@@ -12,7 +12,7 @@ export type Service = {
   title: string;
   description: string;
   startingPrice: string;
-  href: string;
+  deliverable: string;
 };
 
 export const services: Service[] = [
@@ -23,7 +23,7 @@ export const services: Service[] = [
     description:
       "Halaman fokus untuk promosi satu produk atau layanan. Cepat dibuat, ringan, dan langsung mengajak pengunjung bertindak.",
     startingPrice: "Rp 2,5 jt",
-    href: "#layanan",
+    deliverable: "1 halaman konversi",
   },
   {
     id: "company-profile",
@@ -32,7 +32,7 @@ export const services: Service[] = [
     description:
       "Website perkenalan bisnis lengkap dengan profil, layanan, galeri, dan kontak. Cocok untuk UMKM yang ingin terlihat profesional.",
     startingPrice: "Rp 4 jt",
-    href: "#layanan",
+    deliverable: "5–7 halaman",
   },
   {
     id: "toko-online",
@@ -41,7 +41,7 @@ export const services: Service[] = [
     description:
       "Showcase produk dengan katalog, keranjang, dan integrasi WhatsApp/penjualan. Siap bantu bisnis Anda jualan online.",
     startingPrice: "Rp 6 jt",
-    href: "#layanan",
+    deliverable: "Katalog + checkout",
   },
   {
     id: "web-app-custom",
@@ -50,7 +50,7 @@ export const services: Service[] = [
     description:
       "Solusi khusus seperti dashboard, sistem booking, membership, atau otomasi proses bisnis tertentu.",
     startingPrice: "Custom",
-    href: "#layanan",
+    deliverable: "Sesuai scope",
   },
 ];
 
@@ -58,9 +58,12 @@ export type Project = {
   id: string;
   title: string;
   category: string;
-  url: string;
+  /** One-line result/summary — descriptive, not a fabricated metric. */
+  summary: string;
   imageSrc: string;
   alt: string;
+  /** Brand accent for the authored mini-site preview (per client). */
+  accent: string;
   size: "large" | "tall" | "wide" | "normal";
 };
 
@@ -69,70 +72,77 @@ export const projects: Project[] = [
     id: "kopi-senja",
     title: "Kopi Senja",
     category: "Toko Online",
-    url: "kopisenja.id",
+    summary: "Katalog kopi dengan pemesanan langsung via WhatsApp.",
     imageSrc:
       "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&w=1200&q=80",
-    alt: "Website toko online Kopi Senja dengan tampilan katalog produk kopi",
+    alt: "Tampilan website toko online Kopi Senja dengan katalog produk kopi",
+    accent: "#6B4A2E",
     size: "large",
   },
   {
     id: "mitra-sehat",
     title: "Mitra Sehat",
     category: "Company Profile",
-    url: "mitrasehat.co.id",
+    summary: "Profil klinik dengan info layanan dan jadwal dokter.",
     imageSrc:
       "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80",
-    alt: "Website company profile klinik Mitra Sehat",
+    alt: "Tampilan website company profile klinik Mitra Sehat",
+    accent: "#0E7C7B",
     size: "tall",
   },
   {
     id: "noir-fashion",
     title: "Noir Fashion",
     category: "Landing Page",
-    url: "noirfashion.id",
+    summary: "Landing peluncuran koleksi yang bersih dan elegan.",
     imageSrc:
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
-    alt: "Landing page Noir Fashion dengan tampilan elegan",
+    alt: "Tampilan landing page Noir Fashion",
+    accent: "#1A1A1A",
     size: "normal",
   },
   {
     id: "green-space",
     title: "Green Space",
-    category: "Coworking Space",
-    url: "greenspace.id",
+    category: "Company Profile",
+    summary: "Website coworking dengan denah ruang dan reservasi.",
     imageSrc:
       "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80",
-    alt: "Website company profile coworking space Green Space",
+    alt: "Tampilan website company profile coworking space Green Space",
+    accent: "#2F7D4F",
     size: "wide",
   },
   {
     id: "bengkel-cepat",
     title: "Bengkel Cepat",
     category: "Web App Custom",
-    url: "bengkelcepat.id",
+    summary: "Sistem booking servis dengan pilihan jadwal.",
     imageSrc:
       "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=800&q=80",
-    alt: "Web app booking servis bengkel",
+    alt: "Tampilan web app booking servis bengkel",
+    accent: "#1F5AA8",
     size: "normal",
   },
   {
     id: "rumah-roti",
     title: "Rumah Roti",
     category: "Toko Online",
-    url: "rumahroti.id",
+    summary: "Toko roti dengan katalog harian dan pre-order.",
     imageSrc:
       "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80",
-    alt: "Website toko online Rumah Roti",
+    alt: "Tampilan website toko online Rumah Roti",
+    accent: "#C77D2A",
     size: "normal",
   },
   {
     id: "startup-nusantara",
     title: "Startup Nusantara",
     category: "Company Profile",
-    url: "startupnusantara.id",
+    summary: "Profil startup dengan halaman produk dan karier.",
     imageSrc:
       "https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=800&q=80",
-    alt: "Website company profile Startup Nusantara",
+    alt: "Tampilan website company profile Startup Nusantara",
+    accent: "#3B3AA8",
     size: "normal",
   },
 ];
@@ -209,7 +219,6 @@ export type PricingTier = {
   price: string;
   description: string;
   features: string[];
-  href: string;
   popular?: boolean;
 };
 
@@ -226,7 +235,6 @@ export const pricingTiers: PricingTier[] = [
       "Revisi 2x",
       "Support 14 hari",
     ],
-    href: "#kontak",
   },
   {
     id: "business",
@@ -241,7 +249,6 @@ export const pricingTiers: PricingTier[] = [
       "Revisi 4x",
       "Support 30 hari",
     ],
-    href: "#kontak",
     popular: true,
   },
   {
@@ -257,7 +264,6 @@ export const pricingTiers: PricingTier[] = [
       "Revisi sesuai scope",
       "Support & maintenance berkelanjutan",
     ],
-    href: "#kontak",
   },
 ];
 
@@ -296,10 +302,11 @@ export const testimonials: Testimonial[] = [
   },
 ];
 
+// Offer/process facts — defensible capability claims, not a fabricated track record.
 export const stats = [
-  { value: "120+", label: "Website Diluncurkan" },
-  { value: "4.9/5", label: "Rating Klien" },
-  { value: "2–4", label: "Minggu Pengerjaan" },
+  { value: "2–4", unit: "minggu", label: "Estimasi pengerjaan" },
+  { value: "30", unit: "hari", label: "Garansi & support" },
+  { value: "100%", unit: "", label: "Responsif & SEO-ready" },
 ];
 
 export const trustCategories = [
@@ -325,14 +332,15 @@ export const navLinks = [
 
 export const companyLinks = [
   { label: "Tentang Kami", href: "#" },
-  { label: "Karir", href: "#" },
-  { label: "Blog", href: "#" },
-  { label: "Kebijakan Privasi", href: "#" },
+  { label: "Proses Kerja", href: "#proses" },
+  { label: "Portofolio", href: "#portofolio" },
+  { label: "Harga", href: "#harga" },
 ];
 
 export const contactInfo = {
-  email: "halo@webkriya.id",
   phone: "+62 812-3456-7890",
+  instagram: "@webkriya.studio",
+  instagramUrl: "https://instagram.com/webkriya.studio",
   location: "Jakarta, Indonesia",
   whatsapp: "https://wa.me/6281234567890",
 };

@@ -3,80 +3,114 @@
 import { Check } from "lucide-react";
 import { pricingTiers, contactInfo } from "@/lib/data";
 import { FadeIn } from "./FadeIn";
+import { cn } from "@/lib/utils";
 
 export function Pricing() {
   return (
     <section
       id="harga"
-      className="bg-white py-16 sm:py-24"
+      className="scroll-mt-24 border-t border-stone bg-stoneMist/50 py-20 sm:py-28"
       aria-labelledby="harga-heading"
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-8xl px-5 sm:px-8">
         <FadeIn>
-          <div className="mx-auto max-w-2xl text-center">
-            <span className="text-sm font-mono font-semibold uppercase tracking-wider text-brand">
-              Harga
-            </span>
+          <div className="max-w-2xl">
             <h2
               id="harga-heading"
-              className="mt-3 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl"
+              className="font-display text-4xl font-bold leading-[1.02] tracking-[-0.03em] text-ink sm:text-5xl"
             >
-              Investasi website yang terjangkau
+              Investasi yang jelas sejak awal.
             </h2>
-            <p className="mt-4 text-ink/70">
-              Pilih paket sesuai kebutuhan. Harga di bawah bisa disesuaikan
-              lagi setelah kita diskusi detail.
+            <p className="mt-6 text-lg leading-relaxed text-ink/70 text-pretty">
+              Pilih paket sesuai kebutuhan. Angka di bawah bisa disesuaikan lagi
+              setelah kita diskusi detail — tanpa biaya tersembunyi.
             </p>
           </div>
         </FadeIn>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-3">
-          {pricingTiers.map((tier, index) => (
-            <FadeIn key={tier.id} delay={index * 0.08}>
-              <article
-                className={`relative flex h-full flex-col rounded-2xl border p-6 transition-all duration-200 hover:shadow-md ${
-                  tier.popular
-                    ? "border-2 border-brand bg-white"
-                    : "border-hair bg-white hover:border-brand"
-                }`}
-              >
-                {tier.popular && (
-                  <span className="absolute -top-3 left-6 inline-flex rounded-full bg-brand px-3 py-1 text-xs font-semibold text-white">
-                    Populer
-                  </span>
-                )}
-                <h3 className="font-display text-xl font-semibold text-ink">
-                  {tier.name}
-                </h3>
-                <p className="mt-4 font-display text-4xl font-bold text-ink">
-                  {tier.price}
-                </p>
-                <p className="mt-2 text-sm text-ink/70">{tier.description}</p>
-
-                <ul className="mt-6 flex-1 space-y-3">
-                  {tier.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-3">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
-                      <span className="text-sm text-ink/80">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <a
-                  href={contactInfo.whatsapp}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`mt-8 inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
-                    tier.popular
-                      ? "bg-brand text-white hover:bg-brandDark focus-visible:ring-brand"
-                      : "border border-hair bg-white text-ink hover:border-brand hover:text-brand focus-visible:ring-brand"
-                  }`}
+        <div className="mt-14 grid items-start gap-6 lg:grid-cols-3">
+          {pricingTiers.map((tier, index) => {
+            const featured = Boolean(tier.popular);
+            return (
+              <FadeIn key={tier.id} delay={index * 0.08}>
+                <article
+                  className={cn(
+                    "relative flex h-full flex-col rounded-panel p-7 sm:p-8",
+                    featured
+                      ? "bg-pine text-canvas shadow-pine lg:-mt-4 lg:pb-11"
+                      : "border border-stone bg-paper text-ink shadow-card"
+                  )}
                 >
-                  Pilih Paket
-                </a>
-              </article>
-            </FadeIn>
-          ))}
+                  {featured && (
+                    <span className="absolute -top-3 left-8 inline-flex items-center gap-1.5 rounded-full bg-saffron px-3 py-1 text-xs font-bold uppercase tracking-wide text-pineDark shadow-lift">
+                      Paling laris
+                    </span>
+                  )}
+                  <h3
+                    className={cn(
+                      "font-display text-xl font-semibold",
+                      featured ? "text-canvas" : "text-ink"
+                    )}
+                  >
+                    {tier.name}
+                  </h3>
+                  <p
+                    className={cn(
+                      "nums mt-4 font-display text-4xl font-bold tracking-tight",
+                      featured ? "text-canvas" : "text-ink"
+                    )}
+                  >
+                    {tier.price}
+                  </p>
+                  <p
+                    className={cn(
+                      "mt-2.5 text-sm leading-relaxed",
+                      featured ? "text-canvas/75" : "text-ink/65"
+                    )}
+                  >
+                    {tier.description}
+                  </p>
+
+                  <ul className="mt-7 flex-1 space-y-3.5">
+                    {tier.features.map((feature) => (
+                      <li key={feature} className="flex items-start gap-3">
+                        <Check
+                          className={cn(
+                            "mt-0.5 h-4 w-4 shrink-0",
+                            featured ? "text-saffron" : "text-pine"
+                          )}
+                          strokeWidth={3}
+                          aria-hidden="true"
+                        />
+                        <span
+                          className={cn(
+                            "text-[0.9rem]",
+                            featured ? "text-canvas/90" : "text-ink/80"
+                          )}
+                        >
+                          {feature}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <a
+                    href={contactInfo.whatsapp}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={cn(
+                      "mt-9 inline-flex items-center justify-center rounded-[12px] px-6 py-3.5 text-[0.95rem] font-semibold transition-all duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+                      featured
+                        ? "bg-saffron text-pineDark shadow-lift hover:bg-[#EBB558] focus-visible:ring-saffron focus-visible:ring-offset-pine"
+                        : "bg-pine text-canvas shadow-pine hover:bg-pineLight focus-visible:ring-pine focus-visible:ring-offset-canvas"
+                    )}
+                  >
+                    Pilih {tier.name}
+                  </a>
+                </article>
+              </FadeIn>
+            );
+          })}
         </div>
       </div>
     </section>

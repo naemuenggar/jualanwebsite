@@ -2,9 +2,33 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 import { navLinks, contactInfo } from "@/lib/data";
 import { cn } from "@/lib/utils";
+
+function Logo() {
+  return (
+    <span className="flex items-center gap-2.5">
+      <span
+        className="relative grid h-9 w-9 place-items-center rounded-[10px] bg-pine shadow-pine"
+        aria-hidden="true"
+      >
+        <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none">
+          <path
+            d="M5 15.5 9.5 6l2.5 6 2.5-6L19 15.5"
+            stroke="#E0A43B"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </span>
+      <span className="font-display text-[1.35rem] font-bold leading-none tracking-tight text-ink">
+        Webkriya
+      </span>
+    </span>
+  );
+}
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -20,52 +44,47 @@ export function Navbar() {
   return (
     <nav
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-200",
+        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
         scrolled
-          ? "border-b border-hair/70 bg-white/90 py-3 backdrop-blur-md"
-          : "bg-transparent py-5"
+          ? "border-b border-stone bg-canvas/85 py-3 backdrop-blur-md"
+          : "border-b border-transparent bg-transparent py-5"
       )}
       aria-label="Navigasi utama"
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        {/* Logo */}
-        <a href="#" className="flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 rounded-lg">
-          <div className="flex items-center gap-1">
-            <span className="h-2.5 w-2.5 rounded-full bg-brand" />
-            <span className="h-2.5 w-2.5 rounded-full bg-zap" />
-            <span className="h-2.5 w-2.5 rounded-full bg-ink" />
-          </div>
-          <span className="font-display text-xl font-bold tracking-tight text-ink">
-            Webkriya
-          </span>
+      <div className="mx-auto flex max-w-8xl items-center justify-between px-5 sm:px-8">
+        <a
+          href="#"
+          className="rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pine focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
+        >
+          <Logo />
         </a>
 
-        {/* Desktop nav */}
-        <div className="hidden items-center gap-8 md:flex">
+        <div className="hidden items-center gap-9 md:flex">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-ink/80 transition-colors hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 rounded-md"
+              className="group relative text-[0.95rem] font-medium text-ink/70 transition-colors hover:text-ink"
             >
               {link.label}
+              <span className="absolute -bottom-1.5 left-0 h-[2px] w-0 bg-saffron transition-all duration-300 group-hover:w-full" />
             </a>
           ))}
           <a
             href={contactInfo.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-full bg-brand px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brandDark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+            className="inline-flex items-center gap-1.5 rounded-[12px] bg-pine px-5 py-2.5 text-[0.9rem] font-semibold text-canvas shadow-pine transition-all duration-200 hover:-translate-y-0.5 hover:bg-pineLight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pine focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
           >
-            Konsultasi Gratis
+            Konsultasi
+            <ArrowUpRight className="h-4 w-4" />
           </a>
         </div>
 
-        {/* Mobile menu button */}
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-hair bg-white text-ink md:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-[12px] border border-stone bg-paper text-ink md:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pine focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
           aria-expanded={open}
           aria-controls="mobile-menu"
           aria-label={open ? "Tutup menu" : "Buka menu"}
@@ -74,7 +93,6 @@ export function Navbar() {
         </button>
       </div>
 
-      {/* Mobile menu */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -82,16 +100,16 @@ export function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            className="overflow-hidden border-b border-hair bg-white md:hidden"
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden border-b border-stone bg-canvas md:hidden"
           >
-            <div className="space-y-2 px-4 py-4">
+            <div className="space-y-1 px-5 py-4">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="block rounded-lg px-3 py-2 text-base font-medium text-ink/80 hover:bg-mist hover:text-brand"
+                  className="block rounded-[10px] px-3 py-2.5 text-base font-medium text-ink/80 transition-colors hover:bg-stoneMist hover:text-ink"
                 >
                   {link.label}
                 </a>
@@ -101,9 +119,10 @@ export function Navbar() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setOpen(false)}
-                className="mt-3 block rounded-full bg-brand px-5 py-3 text-center text-sm font-semibold text-white hover:bg-brandDark"
+                className="mt-3 flex items-center justify-center gap-1.5 rounded-[12px] bg-pine px-5 py-3.5 text-center text-sm font-semibold text-canvas"
               >
                 Konsultasi Gratis
+                <ArrowUpRight className="h-4 w-4" />
               </a>
             </div>
           </motion.div>
