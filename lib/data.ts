@@ -331,10 +331,11 @@ export const navLinks = [
 ];
 
 export const companyLinks = [
-  { label: "Tentang Kami", href: "#" },
-  { label: "Proses Kerja", href: "#proses" },
-  { label: "Portofolio", href: "#portofolio" },
+  { label: "Template", href: "#portofolio" },
+  { label: "Proses", href: "#proses" },
   { label: "Harga", href: "#harga" },
+  { label: "Testimoni", href: "#testimoni" },
+  { label: "Konsultasi", href: "#kontak" },
 ];
 
 export const contactInfo = {
