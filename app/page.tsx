@@ -1,7 +1,7 @@
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { TrustMarquee } from "@/components/TrustMarquee";
-import { ServicesGrid } from "@/components/ServicesGrid";
+import { PainPoints } from "@/components/PainPoints";
 import { PortfolioBento } from "@/components/PortfolioBento";
 import { ProcessSteps } from "@/components/ProcessSteps";
 import { WhyUs } from "@/components/WhyUs";
@@ -17,7 +17,7 @@ export default function Home() {
       <main>
         <Hero />
         <TrustMarquee />
-        <ServicesGrid />
+        <PainPoints />
         <PortfolioBento />
         <ProcessSteps />
         <WhyUs />

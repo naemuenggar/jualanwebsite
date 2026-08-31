@@ -6,7 +6,7 @@ import { FadeIn } from "./FadeIn";
 
 export function CTASection() {
   return (
-    <section className="py-20 sm:py-28" aria-labelledby="cta-heading">
+    <section id="kontak" className="py-20 sm:py-28" aria-labelledby="cta-heading">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <FadeIn>
           <div className="relative overflow-hidden rounded-panel bg-pine px-6 py-14 text-center text-canvas shadow-pine sm:px-12 sm:py-20">
